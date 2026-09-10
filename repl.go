@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+
+	"github.com/maximilian-1011/rogue_trader/internal/creation"
 )
 
 func startRepl() {
-	chr := getCharacter()
+	chr := creation.NewCharacter()
 	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 	for {
@@ -20,7 +21,7 @@ func startRepl() {
 			continue
 		}
 
-		words := cleanupInput(scanner.Text())
+		words := creation.CleanInput(scanner.Text())
 
 		commandName := words[0]
 
@@ -40,36 +41,10 @@ func startRepl() {
 	}
 }
 
-func cleanupInput(text string) []string {
-	output := strings.ToLower(text)
-	words := strings.Split(output, " ")
-	return words
-}
-
-type Character struct {
-	name          string
-	career        string
-	rank          int
-	health        int
-	insanity      int
-	corruption    int
-	fate          int
-	skillsBasic   []string
-	skillsTrained []string
-	skills10      []string
-	skills20      []string
-	xpSpent       int
-	xpToSpend     int
-}
-
-func getCharacter() Character {
-	return Character{}
-}
-
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*Character) error
+	callback    func(*creation.Character) error
 }
 
 func getCommands() map[string]cliCommand {

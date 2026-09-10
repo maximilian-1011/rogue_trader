@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-func commandHelp(chr *Character) error {
+	"github.com/maximilian-1011/rogue_trader/internal/creation"
+)
+
+func commandHelp(chr *creation.Character) error {
 	commands := getCommands()
 	fmt.Println()
 	fmt.Println("Welcome to Rogue Trader CLI")

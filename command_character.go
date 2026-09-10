@@ -1,17 +1,23 @@
 package main
 
-func commandBuild(chr *Character) error {
+import (
+	"github.com/maximilian-1011/rogue_trader/internal/creation"
+)
+
+func commandBuild(char *creation.Character) error {
+	creation.CreateCharacter(char)
 	return nil
 }
 
-func commandDisplay(chr *Character) error {
+func commandDisplay(char *creation.Character) error {
+	creation.PresentCharacter(char)
 	return nil
 }
 
-func commandLoad(chr *Character) error {
+func commandLoad(char *creation.Character) error {
 	return nil
 }
 
-func commandSave(chr *Character) error {
+func commandSave(char *creation.Character) error {
 	return nil
 }
