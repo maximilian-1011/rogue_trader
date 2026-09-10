@@ -75,6 +75,9 @@ func CreateCharacter(char *Character) *Character {
 	attributes := attributeList()
 	total := 0
 	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter character name: ")
+	scanner.Scan()
+	char.name = scanner.Text()
 	var rolls []int
 	for total < 100 {
 		total = 0
@@ -104,18 +107,25 @@ func CreateCharacter(char *Character) *Character {
 				continue
 			case "no":
 				exit = true
+			default:
+				continue
 			}
 		}
+		fmt.Println()
 		if exit {
 			break
 		}
 	}
-	for i := range attributes {
-		fmt.Printf("%s: %d\n", attributes[i], rolls[i])
-		char.attributes[attributes[i]] += rolls[i]
+	if total >= 100 {
+		for i := range attributes {
+			fmt.Printf("%s: %d\n", attributes[i], rolls[i])
+		}
+		fmt.Printf("Your total is: %d\n", total)
+		fmt.Println()
 	}
-	fmt.Printf("Your total is: %d\n", total)
-
+	for i, attribute := range attributes {
+		char.attributes[attribute] += rolls[i]
+	}
 	return char
 }
 
