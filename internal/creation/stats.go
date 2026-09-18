@@ -1,10 +1,8 @@
 package creation
 
 import (
-	"bufio"
 	"fmt"
 	"math/rand"
-	"os"
 )
 
 func attributeList() []string {
@@ -33,7 +31,6 @@ func getAttributes() map[string]int {
 
 func getStats(char *Character) {
 	attributes := attributeList()
-	scanner := bufio.NewScanner(os.Stdin)
 	total := 0
 	var rolls []int
 	for total < 100 {
@@ -51,14 +48,8 @@ func getStats(char *Character) {
 			}
 			fmt.Printf("Your total is: %d\n", total)
 			fmt.Print("Would you like to reroll? (yes/no): ")
-			scanner.Scan()
-			err := scanner.Err()
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
 
-			choice := CleanInput(scanner.Text())[0]
+			choice := GetUserInput()[0]
 			switch choice {
 			case "yes":
 				continue
@@ -81,6 +72,6 @@ func getStats(char *Character) {
 		fmt.Println()
 	}
 	for i, attribute := range attributes {
-		char.attributes[attribute] += rolls[i]
+		char.Attributes[attribute] += rolls[i]
 	}
 }

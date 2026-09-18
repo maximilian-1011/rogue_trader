@@ -1,27 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 
 	"github.com/maximilian-1011/rogue_trader/internal/creation"
 )
 
 func startRepl() {
 	chr := creation.NewCharacter()
-	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 	for {
 		fmt.Print("Rogue Trader Cli > ")
-		scanner.Scan()
-		err := scanner.Err()
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
 
-		words := creation.CleanInput(scanner.Text())
+		words := creation.GetUserInput()
 
 		commandName := words[0]
 
