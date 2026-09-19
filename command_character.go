@@ -4,6 +4,10 @@ import (
 	"github.com/maximilian-1011/rogue_trader/internal/creation"
 )
 
+const (
+	CHARACTERS = "./.characters"
+)
+
 func commandBuild(char *creation.Character) error {
 	creation.CreateCharacter(char)
 	return nil
@@ -15,7 +19,7 @@ func commandDisplay(char *creation.Character) error {
 }
 
 func commandLoad(char *creation.Character) error {
-	err := creation.CharacterRead(char, "./characters")
+	err := creation.CharacterRead(char, CHARACTERS)
 	if err != nil {
 		return err
 	}
@@ -24,7 +28,7 @@ func commandLoad(char *creation.Character) error {
 }
 
 func commandSave(char *creation.Character) error {
-	err := creation.CharacterWrite(char, "./characters")
+	err := creation.CharacterWrite(char, CHARACTERS)
 	if err != nil {
 		return err
 	}

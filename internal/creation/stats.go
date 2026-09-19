@@ -5,17 +5,29 @@ import (
 	"math/rand"
 )
 
+const (
+	BALLISTIC    = "Ballistic Skill"
+	WEAPON       = "Weapon Skill"
+	STRENGTH     = "Strenght"
+	TOUGHNESS    = "Toughness"
+	AGILITY      = "Agility"
+	PERCEPTION   = "Perception"
+	INTELLIGENCE = "Intelligence"
+	WILLPOWER    = "Willpower"
+	FELLOWSHIP   = "Fellowship"
+)
+
 func attributeList() []string {
 	return []string{
-		"Ballistic Skill",
-		"Weapon Skill",
-		"Strength",
-		"Toughness",
-		"Agility",
-		"Perception",
-		"Intelligence",
-		"Willpower",
-		"Fellowship",
+		BALLISTIC,
+		WEAPON,
+		STRENGTH,
+		TOUGHNESS,
+		AGILITY,
+		PERCEPTION,
+		INTELLIGENCE,
+		WILLPOWER,
+		FELLOWSHIP,
 	}
 }
 

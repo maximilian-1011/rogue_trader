@@ -2,6 +2,7 @@ package creation
 
 import (
 	"bufio"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -24,4 +25,8 @@ func GetName() string {
 	scanner.Scan()
 	name := strings.TrimSpace(scanner.Text())
 	return name
+}
+
+func roll(amount, faces int) int {
+	return rand.Intn(faces-1) + 1
 }

@@ -16,17 +16,17 @@ type Character struct {
 	Name             string         `json:"name"`
 	CareerPath       string         `json:"career"`
 	Talents          []string       `json:"talents"`
-	SkillsBasic      []string       `json:"basic"`
-	SkillsTrained    []string       `json:"trained"`
-	Skills10         []string       `json:"skills10"`
-	Skills20         []string       `json:"skills20"`
+	SkillsBasic      []skill        `json:"basic"`
+	SkillsTrained    []skill        `json:"trained"`
+	Skills10         []skill        `json:"skills10"`
+	Skills20         []skill        `json:"skills20"`
 	Equipment        []string       `json:"equipment"`
 }
 
 func NewCharacter() Character {
 	return Character{
 		Rank:             1,
-		Attributes:       map[string]int{},
+		Attributes:       getAttributes(),
 		HealthPoints:     0,
 		InsanityPoints:   0,
 		CorruptionPoints: 0,
@@ -34,22 +34,42 @@ func NewCharacter() Character {
 		Name:             "",
 		CareerPath:       "",
 		Talents:          []string{},
-		SkillsBasic:      []string{},
-		SkillsTrained:    []string{},
-		Skills10:         []string{},
-		Skills20:         []string{},
+		SkillsBasic:      []skill{},
+		SkillsTrained:    []skill{},
+		Skills10:         []skill{},
+		Skills20:         []skill{},
 		Equipment:        []string{},
 	}
 }
 
-func CreateCharacter(char *Character) *Character {
+func clearCharacter(char *Character) {
+	char.Rank = 1
 	char.Attributes = getAttributes()
+	char.HealthPoints = 0
+	char.InsanityPoints = 0
+	char.CorruptionPoints = 0
+	char.FatePoints = 0
+	char.Name = ""
+	char.CareerPath = ""
+	char.Talents = []string{}
+	char.SkillsBasic = []skill{}
+	char.SkillsTrained = []skill{}
+	char.Skills10 = []skill{}
+	char.Skills20 = []skill{}
+	char.Equipment = []string{}
+}
+
+func CreateCharacter(char *Character) {
+	clearCharacter(char)
 	fmt.Println("Creating Character...")
 	//attributes := attributeList()
 	fmt.Print("Enter character name: ")
 	char.Name = GetName()
 	getStats(char)
-	return char
+	err := applyHomeworld(char)
+	if err != nil {
+		fmt.Printf("An error occured during home world application: %v", err)
+	}
 }
 
 func PresentCharacter(char *Character) {
@@ -74,22 +94,22 @@ func PresentCharacter(char *Character) {
 	fmt.Println()
 	fmt.Println("Basic Skills")
 	for _, basicSkill := range char.SkillsBasic {
-		fmt.Println(basicSkill)
+		fmt.Println(basicSkill.name)
 	}
 	fmt.Println()
 	fmt.Println("Trained Skills")
 	for _, trainedSkill := range char.SkillsTrained {
-		fmt.Println(trainedSkill)
+		fmt.Println(trainedSkill.name)
 	}
 	fmt.Println()
 	fmt.Println("Skills +10")
 	for _, skill10 := range char.Skills10 {
-		fmt.Println(skill10)
+		fmt.Println(skill10.name)
 	}
 	fmt.Println()
 	fmt.Println("Skills +20")
 	for _, skill20 := range char.Skills20 {
-		fmt.Println(skill20)
+		fmt.Println(skill20.name)
 	}
 	fmt.Println()
 	fmt.Println("Equipment")
