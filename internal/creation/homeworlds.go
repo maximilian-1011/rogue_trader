@@ -85,7 +85,7 @@ func applyDeathWorld(char *Character) error {
 		return err
 	}
 
-	char.HealthPoints = roll(1, 5) + 2
+	char.HealthPoints = roll(1, 5) + 2 + (char.Attributes[TOUGHNESS] / 10)
 	fate := roll(1, 10)
 	if fate <= 5 {
 		char.FatePoints = 2

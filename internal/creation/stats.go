@@ -76,6 +76,9 @@ func getStats(char *Character) {
 			break
 		}
 	}
+
+	fmt.Println()
+
 	if total >= 100 {
 		for i := range attributes {
 			fmt.Printf("%s: %d\n", attributes[i], rolls[i])
@@ -86,4 +89,25 @@ func getStats(char *Character) {
 	for i, attribute := range attributes {
 		char.Attributes[attribute] += rolls[i]
 	}
+
+	availableSwaps := 2
+	for availableSwaps > 0 {
+		fmt.Printf("You have %d swaps remaining.", availableSwaps)
+		fmt.Print("Would you like to swap? (yes/no): ")
+		input := GetUserInput()[0]
+
+		switch input {
+		case "yes":
+			stat1 := querryAttribute()
+			stat2 := querryAttribute()
+			swapStats(char, stat1, stat2)
+			availableSwaps -= 1
+		case "no":
+			availableSwaps = 0
+		}
+	}
+}
+
+func swapStats(char *Character, stat1, stat2 string) {
+	char.Attributes[stat1], char.Attributes[stat2] = char.Attributes[stat2], char.Attributes[stat1]
 }
